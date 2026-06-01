@@ -1,0 +1,657 @@
+﻿<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rubath Nurul Musthofa - Platform Edukasi Modern</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #ffffff;
+            color: #0f172a;
+            overflow-x: hidden;
+        }
+
+        @keyframes shimmerLoop {
+            0% { transform: translateX(-150%) skewX(-25deg); }
+            50% { transform: translateX(150%) skewX(-25deg); }
+            100% { transform: translateX(150%) skewX(-25deg); }
+        }
+
+        .shimmer-btn {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .shimmer-btn::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 200%; height: 100%;
+            background: linear-gradient(
+                to right, 
+                transparent, 
+                rgba(255, 255, 255, 0.3) 30%, 
+                rgba(255, 255, 255, 0.5) 50%, 
+                transparent 70%
+            );
+            transform: translateX(-150%) skewX(-25deg);
+            animation: shimmerLoop 3.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+        }
+        
+        .shimmer-delay::after {
+            animation-delay: 1.75s;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        .typing-cursor::after {
+            content: '|';
+            margin-left: 4px;
+            color: #fde047;
+            display: inline-block;
+            font-weight: 300;
+            animation: blink 1s step-end infinite;
+        }
+    </style>
+</head>
+<body x-data="{ mobileMenuOpen: false }">
+
+    <!-- NAVBAR -->
+    <nav x-data="{ mobileMenuOpen: false, activeMenu: '', init() {
+            const path = window.location.pathname.split('/').pop();
+            const hash = window.location.hash || '#beranda';
+            if (!path || path === 'index.html') {
+                if (hash.includes('fitur')) this.activeMenu = 'fitur';
+                else if (hash.includes('santri')) this.activeMenu = 'santri';
+                else if (hash.includes('galeri')) this.activeMenu = 'galeri';
+                else this.activeMenu = 'beranda';
+            } else if (path === 'pengurus.html') this.activeMenu = 'pengurus';
+            else if (path === 'berita.html') this.activeMenu = 'berita';
+            else this.activeMenu = 'beranda';
+        } }" x-init="init()" class="fixed w-full top-0 left-0 z-50 bg-emerald-900/80 backdrop-blur-md py-4 shadow-sm border-b border-emerald-800">
+        <div class="container mx-auto px-4 sm:px-6">
+            <div class="flex justify-between items-center">
+                <a href="index.html#beranda" class="flex items-center space-x-2 sm:space-x-3 group cursor-pointer max-w-[75%] sm:max-w-none">
+                    <img src="favicon.png" alt="Rubath Logo" class="w-9 h-9 sm:w-10 sm:h-10 bg-white rounded-xl object-cover shadow-md group-hover:scale-110 transition-transform duration-300 flex-shrink-0" />
+                    <span class="text-base sm:text-xl font-extrabold tracking-wider text-white truncate">Rubath Nurul Musthofa</span>
+                </a>
+                
+                <div class="hidden md:flex space-x-1 font-semibold text-sm">
+                    <a href="index.html#beranda" @click="activeMenu='beranda'" :class="activeMenu === 'beranda' ? 'px-3.5 py-2 rounded-lg bg-white/20 text-white transition-all duration-300' : 'px-3.5 py-2 rounded-lg text-emerald-100 hover:bg-emerald-800/60 hover:text-white transition-all duration-300'">Beranda</a>
+                    <a href="index.html#fitur" @click="activeMenu='fitur'" :class="activeMenu === 'fitur' ? 'px-3.5 py-2 rounded-lg bg-white/20 text-white transition-all duration-300' : 'px-3.5 py-2 rounded-lg text-emerald-100 hover:bg-emerald-800/60 hover:text-white transition-all duration-300'">Fitur</a>
+                    <a href="pengurus.html" @click="activeMenu='pengurus'" :class="activeMenu === 'pengurus' ? 'px-3.5 py-2 rounded-lg bg-white/20 text-white transition-all duration-300' : 'px-3.5 py-2 rounded-lg text-emerald-100 hover:bg-emerald-800/60 hover:text-white transition-all duration-300'">Pengurus</a>
+                    <a href="index.html#santri" @click="activeMenu='santri'" :class="activeMenu === 'santri' ? 'px-3.5 py-2 rounded-lg bg-white/20 text-white transition-all duration-300' : 'px-3.5 py-2 rounded-lg text-emerald-100 hover:bg-emerald-800/60 hover:text-white transition-all duration-300'">Santri</a>
+                    <a href="index.html#galeri" @click="activeMenu='galeri'" :class="activeMenu === 'galeri' ? 'px-3.5 py-2 rounded-lg bg-white/20 text-white transition-all duration-300' : 'px-3.5 py-2 rounded-lg text-emerald-100 hover:bg-emerald-800/60 hover:text-white transition-all duration-300'">Galeri</a>
+                    <a href="berita.html" @click="activeMenu='berita'" :class="activeMenu === 'berita' ? 'px-3.5 py-2 rounded-lg bg-white/20 text-white transition-all duration-300' : 'px-3.5 py-2 rounded-lg text-emerald-100 hover:bg-emerald-800/60 hover:text-white transition-all duration-300'">Berita</a>
+                </div>
+                
+                <div class="hidden md:block">
+                    <button class="bg-white text-emerald-900 font-bold px-6 py-2.5 rounded-full shadow-md hover:bg-emerald-50 hover:scale-105 active:scale-95 transition-all duration-300">
+                        Masuk / Daftar
+                    </button>
+                </div>
+
+                <div class="flex md:hidden">
+                    <button @click="mobileMenuOpen = !mobileMenuOpen" type="button" class="text-emerald-100 hover:text-white focus:outline-none p-2 rounded-lg transition-colors" aria-label="Toggle Menu">
+                        <svg x-show="!mobileMenuOpen" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                        <svg x-show="mobileMenuOpen" style="display: none;" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div x-show="mobileMenuOpen" 
+                 x-transition:enter="transition ease-out duration-300 transform"
+                 x-transition:enter-start="opacity-0 -translate-y-4"
+                 x-transition:enter-end="opacity-100 translate-y-0"
+                 x-transition:leave="transition ease-in duration-200 transform"
+                 x-transition:leave-start="opacity-100 translate-y-0"
+                 x-transition:leave-end="opacity-0 -translate-y-4"
+                 class="md:hidden mt-4 pt-4 border-t border-emerald-800/60 flex flex-col space-y-2 font-semibold text-sm"
+                 style="display: none;">
+                <a href="index.html#beranda" @click="activeMenu='beranda'; mobileMenuOpen=false" :class="activeMenu === 'beranda' ? 'px-4 py-3 rounded-xl bg-white/20 text-white transition-all' : 'px-4 py-3 rounded-xl text-emerald-100 bg-emerald-950/30 hover:bg-emerald-800/60 hover:text-white transition-all'"> <i class="fa-solid fa-house mr-2 opacity-70"></i>Beranda</a>
+                <a href="index.html#fitur" @click="activeMenu='fitur'; mobileMenuOpen=false" :class="activeMenu === 'fitur' ? 'px-4 py-3 rounded-xl bg-white/20 text-white transition-all' : 'px-4 py-3 rounded-xl text-emerald-100 bg-emerald-950/30 hover:bg-emerald-800/60 hover:text-white transition-all'"> <i class="fa-solid fa-star mr-2 opacity-70"></i>Fitur</a>
+                <a href="pengurus.html" @click="activeMenu='pengurus'; mobileMenuOpen=false" :class="activeMenu === 'pengurus' ? 'px-4 py-3 rounded-xl bg-white/20 text-white transition-all' : 'px-4 py-3 rounded-xl text-emerald-100 bg-emerald-950/30 hover:bg-emerald-800/60 hover:text-white transition-all'"> <i class="fa-solid fa-users mr-2 opacity-70"></i>Struktur Pengurus</a>
+                <a href="index.html#santri" @click="activeMenu='santri'; mobileMenuOpen=false" :class="activeMenu === 'santri' ? 'px-4 py-3 rounded-xl bg-white/20 text-white transition-all' : 'px-4 py-3 rounded-xl text-emerald-100 bg-emerald-950/30 hover:bg-emerald-800/60 hover:text-white transition-all'"> <i class="fa-solid fa-user-graduate mr-2 opacity-70"></i>Santri Terbaik</a>
+                <a href="index.html#galeri" @click="activeMenu='galeri'; mobileMenuOpen=false" :class="activeMenu === 'galeri' ? 'px-4 py-3 rounded-xl bg-white/20 text-white transition-all' : 'px-4 py-3 rounded-xl text-emerald-100 bg-emerald-950/30 hover:bg-emerald-800/60 hover:text-white transition-all'"> <i class="fa-solid fa-images mr-2 opacity-70"></i>Galeri</a>
+                <a href="berita.html" @click="activeMenu='berita'; mobileMenuOpen=false" :class="activeMenu === 'berita' ? 'px-4 py-3 rounded-xl bg-white/20 text-white transition-all' : 'px-4 py-3 rounded-xl text-emerald-100 bg-emerald-950/30 hover:bg-emerald-800/60 hover:text-white transition-all'"> <i class="fa-solid fa-newspaper mr-2 opacity-70"></i>Berita</a>
+                <div class="pt-2">
+                    <button class="w-full bg-white text-emerald-900 font-bold py-3 rounded-xl shadow-md active:scale-98 transition-all">Masuk / Daftar</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HEADER -->
+    <header id="beranda" x-data="{ animate: false }" x-init="setTimeout(() => animate = true, 50)" class="relative min-h-screen flex items-center justify-center pt-28 pb-16 overflow-hidden bg-emerald-900 text-white">
+        
+        <!-- LAYER FOTO BACKGROUND & OVERLAY -->
+        <div class="absolute inset-0 z-0" aria-hidden="true" style="background-image: linear-gradient(rgba(4,120,87,0.7), rgba(4,120,87,0.7)), url('pondokfavicon.png'); background-size: cover; background-position: center; background-repeat: no-repeat;"></div>
+        <!-- Deskripsi untuk screen reader -->
+        <p class="sr-only">Gambar latar pondok (pondokfavicon.png) dengan overlay hijau transparan.</p>
+
+        <!-- Efek Ornamen Lingkaran Blur -->
+        <div class="absolute w-[300px] h-[300px] sm:w-[500px] sm:h-[500px] rounded-full bg-emerald-800/40 -top-20 -left-20 blur-3xl z-1"></div>
+        
+        <!-- KONTEN UTAMA -->
+        <div class="container mx-auto px-5 text-center z-10" x-show="animate" x-transition:enter="transition ease-out duration-800 transform" x-transition:enter-start="opacity-0 translate-y-6" x-transition:enter-end="opacity-100 translate-y-0" style="display: none;">
+            <div>
+                <span class="inline-block bg-emerald-800/80 border border-emerald-700 text-emerald-300 text-[10px] sm:text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-widest mb-6">Pendaftaran Tahun Ajaran Baru</span>
+            </div>
+            <h1 x-data="{ 
+                    fullText: 'Selamat Datang di \nPortal Resmi \nRubath Nurul Musthofa', 
+                    displayedText: '',
+                    typeText() {
+                        let i = 0;
+                        let interval = setInterval(() => {
+                            if (i < this.fullText.length) {
+                                if (this.fullText.charAt(i) === '\n') { this.displayedText += '<br>'; } 
+                                else { this.displayedText += this.fullText.charAt(i); }
+                                i++;
+                            } else { clearInterval(interval); }
+                        }, 90);
+                    }
+                }" x-init="setTimeout(() => typeText(), 400)" class="inline-block text-2xl sm:text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-tight mb-5 min-h-[7.5rem] sm:min-h-[9rem] md:min-h-[14rem]">
+                <span class="bg-gradient-to-r from-yellow-300 via-emerald-100 to-white bg-clip-text text-transparent typing-cursor" x-html="displayedText"></span>
+            </h1>
+            <p class="text-emerald-100/80 max-w-xl mx-auto text-sm sm:text-base md:text-lg mb-8 leading-relaxed px-2">
+                Platform ekosistem digital terintegrasi untuk kemudahan akses informasi akademik, pendaftaran santri baru, dan manajemen pendidikan modern yang adaptif.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-3.5 max-w-xs sm:max-w-none mx-auto w-full">
+                <button class="shimmer-btn w-full sm:w-auto bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-extrabold px-7 py-3.5 rounded-xl shadow-md text-sm sm:text-base transition-all duration-300 cursor-pointer text-center">
+                    <span class="flex items-center justify-center tracking-wide drop-shadow-[0_1px_1.5px_rgba(0,0,0,0.4)]">Daftar Sekarang <i class="fa-solid fa-arrow-right ml-2 text-xs"></i></span>
+                </button>
+                <a href="#pendaftaran-info" class="shimmer-btn shimmer-delay w-full sm:w-auto bg-emerald-800/40 hover:bg-emerald-800/70 border border-emerald-700/60 text-white font-bold px-7 py-3.5 rounded-xl text-sm sm:text-base transition-all duration-300 cursor-pointer flex items-center justify-center">
+                    Panduan Pendaftaran
+                </a>
+            </div>
+        </div>
+    </header>
+
+<section id="pendiri" class="py-20 bg-slate-50 relative overflow-hidden">
+        <div class="absolute w-[250px] h-[250px] rounded-full bg-emerald-100/50 -bottom-10 -right-10 blur-2xl pointer-events-none"></div>
+        <div class="absolute w-[200px] h-[200px] rounded-full bg-amber-50 -top-10 -left-10 blur-2xl pointer-events-none"></div>
+
+        <div class="container mx-auto px-4 sm:px-6 relative z-10">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-emerald-700 text-xs sm:text-sm font-bold uppercase tracking-widest bg-emerald-50 border border-emerald-200 px-4 py-1.5 rounded-full inline-block mb-3">
+                    Uswatun Hasanah
+                </span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-4">
+                    Pendiri Rubath Nurul Musthofa
+                </h2>
+                <div class="h-1 w-20 bg-amber-500 mx-auto rounded-full mb-4"></div>
+                <p class="text-slate-600 text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
+                    Mengenal sosok keteladanan yang meletakkan batu pertama perjuangan, membawa visi pendidikan modern yang berasaskan akhlakul karimah.
+                </p>
+            </div>
+
+            <div class="max-w-4xl mx-auto bg-white rounded-3xl shadow-xl shadow-slate-200/50 overflow-hidden border border-slate-100">
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-0">
+                    
+                    <div class="md:col-span-5 relative group overflow-hidden min-h-[350px] md:min-h-full">
+                        <img src="foto-pendiri.jpg" alt="Foto Pendiri Rubath Nurul Musthofa" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/40 via-transparent to-transparent md:hidden"></div>
+                    </div>
+
+                    <div class="md:col-span-7 p-8 sm:p-12 flex flex-col justify-center bg-white">
+                        <div class="mb-4">
+                            <h3 class="text-2xl sm:text-3xl font-bold text-slate-800 tracking-tight">
+                                Al-Mukarrom KH. Nama Pendiri
+                            </h3>
+                            <p class="text-amber-600 font-semibold text-sm mt-1 tracking-wide">
+                                Pendiri & Pengasuh Pertama (Periode Th. - Th.)
+                            </p>
+                        </div>
+                        
+                        <div class="w-12 h-[2px] bg-slate-200 mb-6"></div>
+                        
+                        <blockquote class="border-l-4 border-emerald-600 pl-4 italic text-slate-600 text-sm sm:text-base leading-relaxed mb-6 bg-slate-50 py-3 pr-3 rounded-r-xl">
+                            "Didiklah santri dengan hati, tanamkan keikhlasan dalam sanubari, agar kelak mereka menjadi lentera bagi ummat di masa depan."
+                        </blockquote>
+
+                        <p class="text-slate-500 text-xs sm:text-sm leading-relaxed mb-6">
+                            Beliau mendedikasikan seluruh hidupnya untuk dakwah dan pengembangan pendidikan Islam terpadu. Melalui rekam jejak perjuangannya, Rubath Nurul Musthofa bertransformasi menjadi wadah pencetak generasi unggul yang melek teknologi tanpa kehilangan akar spiritualitas santri.
+                        </p>
+
+                        <div class="flex items-center space-x-3 text-slate-400">
+                            <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Arsip Sejarah:</span>
+                            <a href="#" class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 hover:bg-emerald-800 hover:text-white transition-all duration-300 shadow-sm" title="Biografi Lengkap">
+                                <i class="fa-solid fa-book text-xs"></i>
+                            </a>
+                            <a href="#" class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 hover:bg-emerald-800 hover:text-white transition-all duration-300 shadow-sm" title="Video Dokumenter">
+                                <i class="fa-solid fa-play text-xs"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <main class="bg-white text-slate-900">
+        <!-- SECTION FITUR -->
+        <section id="fitur" class="py-16 sm:py-24 relative">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12 sm:mb-16">
+                    <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 mb-3">Kenapa Memilih Kami?</h2>
+                    <div class="w-16 h-1 bg-emerald-600 mx-auto rounded-full"></div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+                    <div class="bg-slate-50 border border-slate-100 p-6 sm:p-8 rounded-2xl hover:border-emerald-500/40 hover:shadow-xl hover:bg-white transition-all duration-500 group">
+                        <div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center mb-5 group-hover:bg-emerald-600 group-hover:text-white transition-all duration-500 shadow-sm"><i class="fa-solid fa-star-and-crescent text-xl"></i></div>
+                        <h3 class="text-lg sm:text-xl font-bold mb-2.5 group-hover:text-emerald-600 transition-colors duration-300">Pendaftaran Mudah</h3>
+                        <p class="text-slate-500 text-xs sm:text-sm leading-relaxed">Alur pendaftaran santri baru dirancang ringkas, aman, dan dapat diakses kapan saja.</p>
+                    </div>
+                    <div class="bg-slate-50 border border-slate-100 p-6 sm:p-8 rounded-2xl hover:border-emerald-500/40 hover:shadow-xl hover:bg-white transition-all duration-500 group">
+                        <div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center mb-5 group-hover:bg-emerald-600 group-hover:text-white transition-all duration-500 shadow-sm"><i class="fa-solid fa-mosque text-xl"></i></div>
+                        <h3 class="text-lg sm:text-xl font-bold mb-2.5 group-hover:text-emerald-600 transition-colors duration-300">Keamanan Data Amanah</h3>
+                        <p class="text-slate-500 text-xs sm:text-sm leading-relaxed">Didukung teknologi enkripsi modern untuk mengamankan data administrasi santri.</p>
+                    </div>
+                    <div class="bg-slate-50 border border-slate-100 p-6 sm:p-8 rounded-2xl hover:border-emerald-500/40 hover:shadow-xl hover:bg-white transition-all duration-500 group">
+                        <div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center mb-5 group-hover:bg-emerald-600 group-hover:text-white transition-all duration-500 shadow-sm"><i class="fa-solid fa-hands-praying text-xl"></i></div>
+                        <h3 class="text-lg sm:text-xl font-bold mb-2.5 group-hover:text-emerald-600 transition-colors duration-300">Khidmah Pelayanan Istiqomah</h3>
+                        <p class="text-slate-500 text-xs sm:text-sm leading-relaxed">Panitia pendaftaran siap sedia membantu mengarahkan pengisian berkas Anda.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TEASER PENGURUS & BERITA (Penghubung Halaman Baru) -->
+        <section class="py-12 bg-slate-50 border-t border-b border-slate-100">
+            <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex flex-col justify-between items-start">
+                    <div>
+                        <span class="text-emerald-600 font-bold text-xs uppercase tracking-wider">Masa Bakti 2026 - 2028</span>
+                        <h3 class="text-xl font-bold text-slate-950 mt-1 mb-2">Struktur Kepengurusan</h3>
+                        <p class="text-slate-500 text-sm mb-4">Kenali jajaran asatidz, pengasuh, dan pengurus harian Rubath Nurul Musthofa.</p>
+                    </div>
+                    <a href="pengurus.html" class="inline-flex items-center text-emerald-600 font-bold text-sm hover:text-emerald-700 transition-all">Lihat Selengkapnya <i class="fa-solid fa-arrow-right ml-1.5 text-xs"></i></a>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex flex-col justify-between items-start">
+                    <div>
+                        <span class="text-emerald-600 font-bold text-xs uppercase tracking-wider">Update Terkini</span>
+                        <h3 class="text-xl font-bold text-slate-950 mt-1 mb-2">Kabar & Informasi Pesantren</h3>
+                        <p class="text-slate-500 text-sm mb-4">Dapatkan agenda kegiatan formal, info liburan, dan pengumuman terbaru di sini.</p>
+                    </div>
+                    <a href="berita.html" class="inline-flex items-center text-emerald-600 font-bold text-sm hover:text-emerald-700 transition-all">Baca Berita <i class="fa-solid fa-arrow-right ml-1.5 text-xs"></i></a>
+                </div>
+            </div>
+        </section>
+
+<!-- SECTION PANDUAN & SYARAT PENDAFTARAN LENGKAP -->
+        <section id="pendaftaran-info" class="py-16 sm:py-24 bg-gradient-to-b from-slate-50 to-white relative" x-data="{ activeTab: 'akademik' }">
+            <div class="absolute inset-0 bg-[radial-gradient(#e2e8f0_1px,transparent_1px)] [background-size:16px_16px] opacity-50 pointer-events-none"></div>
+            
+            <div class="container mx-auto px-4 sm:px-6 relative z-10">
+                <!-- Header Section -->
+                <div class="text-center mb-12 sm:mb-16">
+                    <span class="text-emerald-600 font-bold text-xs tracking-widest uppercase bg-emerald-50 px-3 py-1.5 rounded-full">Informasi Penerimaan Santri Baru</span>
+                    <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 mt-3 mb-3">Panduan & Syarat Lengkap</h2>
+                    <div class="w-16 h-1 bg-emerald-600 mx-auto rounded-full"></div>
+                </div>
+
+                <!-- ALUR UTAMA (Timeline Atas) -->
+                <div class="mb-16 max-w-5xl mx-auto">
+                    <div class="flex items-center space-x-3 mb-8 justify-center sm:justify-start">
+                        <div class="w-8 h-8 bg-emerald-600 text-white rounded-lg flex items-center justify-center shadow-md"><i class="fa-solid fa-route text-sm"></i></div>
+                        <h3 class="text-xl font-bold text-slate-900">Alur Langkah Pendaftaran</h3>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 relative">
+                        <!-- Langkah 1 -->
+                        <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-xs relative group hover:border-emerald-500/30 transition-all">
+                            <div class="w-8 h-8 bg-amber-400 text-white text-xs font-bold rounded-xl flex items-center justify-center mb-4 shadow-sm">1</div>
+                            <h4 class="font-bold text-slate-950 text-sm mb-1.5">Isi Formulir Online</h4>
+                            <p class="text-slate-500 text-xs leading-relaxed">Klik tombol <span class="font-semibold text-emerald-600">Daftar Sekarang</span>, isi data diri calon santri & orang tua secara valid.</p>
+                        </div>
+                        <!-- Langkah 2 -->
+                        <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-xs relative group hover:border-emerald-500/30 transition-all">
+                            <div class="w-8 h-8 bg-emerald-600 text-white text-xs font-bold rounded-xl flex items-center justify-center mb-4 shadow-sm">2</div>
+                            <h4 class="font-bold text-slate-950 text-sm mb-1.5">Lengkapi Dokumen</h4>
+                            <p class="text-slate-500 text-xs leading-relaxed">Siapkan berkas fisik dan unggah berkas wajib ke sistem dasbor pendaftaran santri.</p>
+                        </div>
+                        <!-- Langkah 3 -->
+                        <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-xs relative group hover:border-emerald-500/30 transition-all">
+                            <div class="w-8 h-8 bg-emerald-600 text-white text-xs font-bold rounded-xl flex items-center justify-center mb-4 shadow-sm">3</div>
+                            <h4 class="font-bold text-slate-950 text-sm mb-1.5">Ujian Seleksi Masuk</h4>
+                            <p class="text-slate-500 text-xs leading-relaxed">Mengikuti tes kelancaran membaca Al-Quran, tajwid, hafalan juz 30, serta wawancara.</p>
+                        </div>
+                        <!-- Langkah 4 -->
+                        <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-xs relative group hover:border-emerald-500/30 transition-all">
+                            <div class="w-8 h-8 bg-emerald-600 text-white text-xs font-bold rounded-xl flex items-center justify-center mb-4 shadow-sm">4</div>
+                            <h4 class="font-bold text-slate-950 text-sm mb-1.5">Daftar Ulang</h4>
+                            <p class="text-slate-500 text-xs leading-relaxed">Hasil diumumkan lewat WA resmi. Santri yang lolos wajib menyelesaikan administrasi pondok.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TABS NAVIGATION (Sistem Kategori) -->
+                <div class="max-w-5xl mx-auto">
+                    <div class="flex overflow-x-auto pb-3 mb-8 gap-2 no-scrollbar scroll-smooth snap-x">
+                        <button @click="activeTab = 'akademik'" :class="activeTab === 'akademik' ? 'bg-emerald-600 text-white shadow-md' : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200/60'" class="snap-center flex-shrink-0 px-5 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all cursor-pointer">
+                            <i class="fa-solid fa-graduation-cap mr-2"></i>Syarat Akademik & Formal
+                        </button>
+                        <button @click="activeTab = 'berkas'" :class="activeTab === 'berkas' ? 'bg-emerald-600 text-white shadow-md' : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200/60'" class="snap-center flex-shrink-0 px-5 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all cursor-pointer">
+                            <i class="fa-solid fa-file-invoice mr-2"></i>Berkas Administrasi
+                        </button>
+                        <button @click="activeTab = 'finansial'" :class="activeTab === 'finansial' ? 'bg-emerald-600 text-white shadow-md' : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200/60'" class="snap-center flex-shrink-0 px-5 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all cursor-pointer">
+                            <i class="fa-solid fa-wallet mr-2"></i>Finansial & Fasilitas
+                        </button>
+                        <button @click="activeTab = 'pernyataan'" :class="activeTab === 'pernyataan' ? 'bg-emerald-600 text-white shadow-md' : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200/60'" class="snap-center flex-shrink-0 px-5 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider transition-all cursor-pointer">
+                            <i class="fa-solid fa-handshake-angle mr-2"></i>Surat Kesanggupan
+                        </button>
+                    </div>
+
+                    <!-- TAB CONTENT VIEW -->
+                    <div class="bg-white border border-slate-100 rounded-3xl p-6 sm:p-8 shadow-sm">
+                        
+                        <!-- 1. KATEGORI AKADEMIK & FORMAL -->
+                        <div x-show="activeTab === 'akademik'" x-transition class="space-y-6">
+                            <h3 class="text-lg font-bold text-slate-900 border-b border-slate-100 pb-3 flex items-center"><i class="fa-solid fa-circle-check text-emerald-500 mr-2.5"></i> Kualifikasi Calon Santri</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="flex items-start p-4 bg-slate-50 rounded-xl space-x-3">
+                                    <div class="w-7 h-7 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center flex-shrink-0 text-xs font-bold">A</div>
+                                    <p class="text-sm text-slate-700 leading-normal font-medium">Santri baru minimal merupakan tamatan <span class="font-bold text-slate-900">SD atau sederajat</span>.</p>
+                                </div>
+                                <div class="flex items-start p-4 bg-slate-50 rounded-xl space-x-3">
+                                    <div class="w-7 h-7 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center flex-shrink-0 text-xs font-bold">B</div>
+                                    <p class="text-sm text-slate-700 leading-normal font-medium">Mampu membaca <span class="font-bold text-slate-900">Al-Quran dengan lancar</span> serta sesuai kaidah bertajwid.</p>
+                                </div>
+                                <div class="flex items-start p-4 bg-slate-50 rounded-xl space-x-3">
+                                    <div class="w-7 h-7 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center flex-shrink-0 text-xs font-bold">C</div>
+                                    <p class="text-sm text-slate-700 leading-normal font-medium">Sudah <span class="font-bold text-slate-900">menghafal Juz 30</span> secara mutqin (lancar).</p>
+                                </div>
+                                <div class="flex items-start p-4 bg-slate-50 rounded-xl space-x-3">
+                                    <div class="w-7 h-7 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center flex-shrink-0 text-xs font-bold">D</div>
+                                    <p class="text-sm text-slate-700 leading-normal font-medium">Calon santri wajib <span class="font-bold text-slate-900">diantar langsung oleh orang tua kandung</span> atau walinya ke perwakilan.</p>
+                                </div>
+                            </div>
+                            <div class="p-4 bg-amber-500/5 border border-amber-500/20 rounded-2xl flex items-start space-x-3">
+                                <i class="fa-solid fa-triangle-exclamation text-amber-600 mt-0.5 text-sm"></i>
+                                <p class="text-xs text-slate-600 leading-relaxed">
+                                    <span class="font-bold text-amber-800">Ketentuan Udzur Wali:</span> Jika orang tua kandung berhalangan hadir karena alasan syar'i, wali yang mewakili wajib membawa berkas tambahan berupa <span class="font-semibold text-slate-900">Surat Izin / Surat Pernyataan resmi berwujud fisik</span> yang ditandatangani oleh orang tua di atas materai.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- 2. KATEGORI BERKAS ADMINISTRASI -->
+                        <div x-show="activeTab === 'berkas'" x-transition style="display: none;" class="space-y-6">
+                            <h3 class="text-lg font-bold text-slate-900 border-b border-slate-100 pb-3 flex items-center"><i class="fa-solid fa-folder-open text-emerald-500 mr-2.5"></i> Kelengkapan Dokumen Wajib</h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+                                <div class="p-4 border border-slate-100 bg-slate-50/50 rounded-2xl text-center space-y-2">
+                                    <i class="fa-solid fa-users text-2xl text-emerald-600"></i>
+                                    <h5 class="font-bold text-xs text-slate-900 uppercase tracking-wider">Kartu Keluarga</h5>
+                                    <p class="text-slate-500 text-xs">Fotokopi berkas sebanyak <span class="font-bold text-slate-800">3 Lembar</span></p>
+                                </div>
+                                <div class="p-4 border border-slate-100 bg-slate-50/50 rounded-2xl text-center space-y-2">
+                                    <i class="fa-solid fa-address-card text-2xl text-emerald-600"></i>
+                                    <h5 class="font-bold text-xs text-slate-900 uppercase tracking-wider">KTP Orang Tua</h5>
+                                    <p class="text-slate-500 text-xs">Fotokopi berkas masing-masing <span class="font-bold text-slate-800">3 Lembar</span></p>
+                                </div>
+                                <div class="p-4 border border-slate-100 bg-slate-50/50 rounded-2xl text-center space-y-2">
+                                    <i class="fa-solid fa-cake-candles text-2xl text-emerald-600"></i>
+                                    <h5 class="font-bold text-xs text-slate-900 uppercase tracking-wider">Akta Kelahiran</h5>
+                                    <p class="text-slate-500 text-xs">Fotokopi berkas sebanyak <span class="font-bold text-slate-800">3 Lembar</span></p>
+                                </div>
+                                <div class="p-4 border border-slate-100 bg-slate-50/50 rounded-2xl text-center space-y-2">
+                                    <i class="fa-solid fa-graduation-cap text-2xl text-emerald-600"></i>
+                                    <h5 class="font-bold text-xs text-slate-900 uppercase tracking-wider">Ijazah / SKL</h5>
+                                    <p class="text-slate-500 text-xs">Surat keterangan lulus / FC ijazah <span class="font-bold text-slate-800">3 Lembar</span></p>
+                                </div>
+                            </div>
+                            <div class="p-4 bg-emerald-950/5 border border-emerald-800/10 rounded-2xl flex items-start space-x-3">
+                                <i class="fa-solid fa-circle-info text-emerald-600 mt-0.5 text-sm"></i>
+                                <p class="text-xs text-slate-600 leading-relaxed">
+                                    <span class="font-bold text-emerald-800">Khusus Calon Santri Pindahan:</span> Diwajibkan membawa Dokumen Tambahan berupa <span class="font-semibold text-slate-950">Surat Izin Pindah resmi atau Surat Keterangan Mengundurkan Diri</span> asli yang diterbitkan oleh institusi madrasah atau pondok pesantren asal sebelumnya.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- 3. KATEGORI FINANSIAL & FASILITAS -->
+                        <div x-show="activeTab === 'finansial'" x-transition style="display: none;" class="space-y-6">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                <!-- Sub Finansial -->
+                                <div class="space-y-4">
+                                    <h3 class="text-base font-bold text-slate-900 border-b border-slate-100 pb-2 flex items-center"><i class="fa-solid fa-receipt text-amber-500 mr-2"></i> Komponen Pembiayaan Awal</h3>
+                                    <ul class="space-y-2.5 text-sm text-slate-600">
+                                        <li class="flex items-center"><i class="fa-solid fa-circle-check text-emerald-500 text-xs mr-2"></i> Membayar Biaya Administrasi Pendaftaran</li>
+                                        <li class="flex items-center"><i class="fa-solid fa-circle-check text-emerald-500 text-xs mr-2"></i> Membayar Uang Pangkal Kelulusan</li>
+                                        <li class="flex items-center"><i class="fa-solid fa-circle-check text-emerald-500 text-xs mr-2"></i> Membayar Uang Gedung Pembangunan</li>
+                                        <li class="flex items-center"><i class="fa-solid fa-circle-check text-emerald-500 text-xs mr-2"></i> Memasang / Memiliki Perangkat Parabola Dalwa TV</li>
+                                    </ul>
+                                    <h3 class="text-base font-bold text-slate-900 border-b border-slate-100 pb-2 pt-4 flex items-center"><i class="fa-solid fa-calendar-days text-emerald-600 mr-2"></i> Iuran Bulanan Berjalan (Syahriyah)</h3>
+                                    <ul class="space-y-2.5 text-sm text-slate-600">
+                                        <li class="flex items-center"><i class="fa-solid fa-xs fa-minus text-slate-400 mr-2"></i> Membayar Uang Syahriyah (Konsumsi Makan Bulanan)</li>
+                                        <li class="flex items-center"><i class="fa-solid fa-xs fa-minus text-slate-400 mr-2"></i> Membayar Iuran Wajib Pesantren Bulanan</li>
+                                        <li class="flex items-center"><i class="fa-solid fa-xs fa-minus text-slate-400 mr-2"></i> Membayar Biaya Operasional Listrik bulanan</li>
+                                    </ul>
+                                    <div class="p-3 bg-amber-50 border border-amber-200 rounded-xl text-[11px] font-medium text-amber-800">
+                                        <i class="fa-solid fa-clock mr-1"></i> Batas jatuh tempo pembayaran bulanan dilakukan pada <span class="font-bold">Tanggal 1 s.d Tanggal 15</span> di setiap bulannya.
+                                    </div>
+                                </div>
+                                <!-- Sub Fasilitas -->
+                                <div class="bg-slate-50 p-5 rounded-2xl space-y-4">
+                                    <h3 class="text-base font-bold text-slate-900 flex items-center"><i class="fa-solid fa-bed text-emerald-600 mr-2"></i> Fasilitas Hak Milik Santri</h3>
+                                    <p class="text-xs text-slate-500 leading-relaxed">Berikut adalah daftar sarana penunjang istirahat dan pakaian seragam dinas operasional resmi yang akan didapatkan langsung oleh setiap santri baru:</p>
+                                    <div class="grid grid-cols-2 gap-3 pt-1">
+                                        <div class="bg-white border border-slate-100 p-3 rounded-xl flex items-center space-x-2.5"><i class="fa-solid fa-mattress-pillow text-emerald-600 text-xs"></i><span class="text-xs font-semibold text-slate-800">Ranjang Kamar</span></div>
+                                        <div class="bg-white border border-slate-100 p-3 rounded-xl flex items-center space-x-2.5"><i class="fa-solid fa-box text-emerald-600 text-xs"></i><span class="text-xs font-semibold text-slate-800">Kasur Busa & Bantal</span></div>
+                                        <div class="bg-white border border-slate-100 p-3 rounded-xl flex items-center space-x-2.5"><i class="fa-solid fa-door-closed text-emerald-600 text-xs"></i><span class="text-xs font-semibold text-slate-800">Almari Pakaian</span></div>
+                                        <div class="bg-white border border-slate-100 p-3 rounded-xl flex items-center space-x-2.5"><i class="fa-solid fa-shirt text-emerald-600 text-xs"></i><span class="text-xs font-semibold text-slate-800">Paket Perlengkapan</span></div>
+                                    </div>
+                                    <div class="border-t border-slate-200/60 pt-3 space-y-2">
+                                        <h5 class="text-xs font-bold text-slate-900 uppercase tracking-wider"><i class="fa-solid fa-venus-mars mr-1 text-emerald-600"></i> Pembagian Atribut Seragam Resmi:</h5>
+                                        <div class="text-xs text-slate-600 space-y-1 pl-1">
+                                            <p><span class="font-bold text-slate-800">Santri Putra:</span> Mendapatkan 2 (dua) stel pakaian jubah seragam Qomish.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 4. KATEGORI SURAT PERNYATAAN & KOMITMEN -->
+                        <div x-show="activeTab === 'pernyataan'" x-transition style="display: none;" class="space-y-6">
+                            <h3 class="text-lg font-bold text-slate-900 border-b border-slate-100 pb-3 flex items-center"><i class="fa-solid fa-signature text-emerald-500 mr-2.5"></i> Pernyataan Kesanggupan Wali & Santri</h3>
+                            <p class="text-xs text-slate-500">Setiap calon santri baru wajib memahami, menyetujui, dan menandatangani poin pakta komitmen integritas di bawah ini:</p>
+                            
+                            <div class="space-y-3.5">
+                                <div class="flex items-start bg-slate-50 p-4 rounded-xl space-x-3.5">
+                                    <i class="fa-solid fa-square-check text-emerald-600 mt-1 flex-shrink-0"></i>
+                                    <p class="text-xs sm:text-sm text-slate-700 leading-relaxed">Sanggup dan bersedia sepenuhnya mentaati arahan Pengurus, Dewan Guru, serta tunduk pada seluruh peraturan/tata tertib regulasi tertulis yang berlaku di lingkungan Pondok Pesantren Darullughah Wadda'wah.</p>
+                                </div>
+                                <div class="flex items-start bg-slate-50 p-4 rounded-xl space-x-3.5">
+                                    <i class="fa-solid fa-square-check text-emerald-600 mt-1 flex-shrink-0"></i>
+                                    <p class="text-xs sm:text-sm text-slate-700 leading-relaxed">Sanggup menerima segala bentuk sanksi disiplin terukur yang ditetapkan oleh Pengurus Pondok apabila di kemudian hari terbukti melakukan pelanggaran hukum pesantren.</p>
+                                </div>
+                                <div class="flex items-start bg-slate-50 p-4 rounded-xl space-x-3.5">
+                                    <i class="fa-solid fa-square-check text-emerald-600 mt-1 flex-shrink-0"></i>
+                                    <p class="text-xs sm:text-sm text-slate-700 leading-relaxed">Sanggup untuk tidak mengajukan izin pulang/pergi meninggalkan area pondok pada rentang waktu krusial: <span class="font-bold text-slate-900">Libur Hari Raya Idul Adha (9-12 Dzulhijjah), masa ujian semester, hingga prosesi pembagian buku raport selesai</span>.</p>
+                                </div>
+                                <div class="flex items-start bg-amber-500/5 border border-amber-500/10 p-4 rounded-xl space-x-3.5">
+                                    <i class="fa-solid fa-circle-exclamation text-amber-600 mt-1 flex-shrink-0"></i>
+                                    <p class="text-xs text-slate-700 leading-relaxed">
+                                        <span class="font-bold text-amber-900 block mb-1">Ketentuan Penahanan Dokumen Kelulusan Akademik:</span>
+                                        Apabila santri menempuh jalur jalur pendidikan formal terintegrasi (MTs, MA, atau jenjang Perkuliahan), setelah dinyatakan lulus dari lembaga formal terkait, santri bersedia untuk <span class="font-semibold">tidak mengambil berkas Ijazah asli/legalisir, SKL, maupun SKHU</span> kecuali setelah melewati masa jeda khidmah selama <span class="font-bold text-emerald-700">1 (satu) tahun penuh</span> terhitung sejak tanggal kelulusan formal, dengan syarat mutlak statusnya masih tercatat sebagai <span class="font-semibold">santri aktif</span>. Untuk lulusan strata perkuliahan, ijazah dapat diserahterimakan 1 tahun pasca-wisuda.
+                                    </p>
+                                </div>
+                                <div class="flex items-start bg-slate-50 p-4 rounded-xl space-x-3.5">
+                                    <i class="fa-solid fa-square-check text-emerald-600 mt-1 flex-shrink-0"></i>
+                                    <p class="text-xs sm:text-sm text-slate-700 leading-relaxed">Berkomitmen untuk tidak berhenti/mengundurkan diri di tengah masa pembelajaran reguler, kecuali pada dua opsi jendela waktu resmi: <span class="font-semibold text-slate-900">Pasca-Semester I (Liburan Maulid Nabi)</span> atau <span class="font-semibold text-slate-900">Pasca-Semester II (Liburan Ramadhan)</span>.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SECTION SANTRI TERBAIK -->
+        <section id="santri" class="py-16 sm:py-24">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <span class="text-emerald-600 font-bold text-xs tracking-widest uppercase">Pencapaian Luar Biasa</span>
+                    <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 mt-1 mb-3">Santri Terbaik</h2>
+                    <div class="w-16 h-1 bg-emerald-500 mx-auto rounded-full"></div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+                    <div class="group bg-white rounded-2xl p-4 shadow-sm border border-slate-200/60 hover:shadow-xl transition-all duration-300">
+                        <div class="relative overflow-hidden rounded-xl aspect-[4/5] sm:aspect-[3/4] bg-slate-100">
+                            <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-transparent to-transparent z-10"></div>
+                            <div class="w-full h-full flex items-center justify-center text-slate-300"><i class="fa-solid fa-user-graduate text-7xl opacity-30"></i></div>
+                            <div class="absolute top-3 right-3 z-20 bg-white/90 backdrop-blur-md px-2.5 py-1 rounded-full"><span class="text-[9px] font-bold text-emerald-700"><i class="fa-solid fa-star mr-1"></i> TAHFIDZ</span></div>
+                            <div class="absolute bottom-4 left-4 right-4 z-20 text-white">
+                                <h4 class="text-lg font-bold">Muhammad Fatih</h4>
+                                <p class="text-emerald-300 text-[11px] font-medium">Hafal 30 Juz Al-Qur'an</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="group bg-white rounded-2xl p-4 shadow-sm border border-slate-200/60 hover:shadow-xl transition-all duration-300">
+                        <div class="relative overflow-hidden rounded-xl aspect-[4/5] sm:aspect-[3/4] bg-slate-100">
+                            <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-transparent to-transparent z-10"></div>
+                            <div class="w-full h-full flex items-center justify-center text-slate-300"><i class="fa-solid fa-user-tie text-7xl opacity-30"></i></div>
+                            <div class="absolute top-3 right-3 z-20 bg-white/90 backdrop-blur-md px-2.5 py-1 rounded-full"><span class="text-[9px] font-bold text-emerald-700"><i class="fa-solid fa-trophy mr-1"></i> JUARA 1</span></div>
+                            <div class="absolute bottom-4 left-4 right-4 z-20 text-white">
+                                <h4 class="text-lg font-bold">Ahmad Rayyan</h4>
+                                <p class="text-emerald-300 text-[11px] font-medium">Lomba MQK Tingkat Nasional</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="group bg-white rounded-2xl p-4 shadow-sm border border-slate-200/60 hover:shadow-xl transition-all duration-300">
+                        <div class="relative overflow-hidden rounded-xl aspect-[4/5] sm:aspect-[3/4] bg-slate-100">
+                            <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/90 via-transparent to-transparent z-10"></div>
+                            <div class="w-full h-full flex items-center justify-center text-slate-300"><i class="fa-solid fa-user-astronaut text-7xl opacity-30"></i></div>
+                            <div class="absolute top-3 right-3 z-20 bg-white/90 backdrop-blur-md px-2.5 py-1 rounded-full"><span class="text-[9px] font-bold text-emerald-700"><i class="fa-solid fa-award mr-1"></i> AKADEMIK</span></div>
+                            <div class="absolute bottom-4 left-4 right-4 z-20 text-white">
+                                <h4 class="text-lg font-bold">Ziyad Al-Farabi</h4>
+                                <p class="text-emerald-300 text-[11px] font-medium">Lulusan Terbaik & Cumlaude</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER & GALERI SECTION DENGAN BG HIJAU -->
+    <div class="bg-emerald-900 text-white">
+        <section id="galeri" class="py-16 relative">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-2xl sm:text-3xl font-bold mb-3 text-white">Galeri Kegiatan</h2>
+                    <div class="w-16 h-1 bg-emerald-400 mx-auto rounded-full"></div>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3.5">
+                    <div class="relative overflow-hidden rounded-xl aspect-square bg-emerald-800 shadow-sm group">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-100 sm:opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 flex items-end p-3"><span class="text-[10px] sm:text-xs font-semibold text-emerald-300">Fasilitas Gedung</span></div>
+                        <img src="foto-gedung.jpg" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" alt="Gedung">
+                    </div>
+                    <div class="relative overflow-hidden rounded-xl aspect-square bg-emerald-800 shadow-sm group">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-100 sm:opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 flex items-end p-3"><span class="text-[10px] sm:text-xs font-semibold text-emerald-300">Aktivitas Belajar</span></div>
+                        <img src="foto-belajar.jpg" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" alt="Belajar">
+                    </div>
+                    <div class="relative overflow-hidden rounded-xl aspect-square bg-emerald-800 shadow-sm group">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-100 sm:opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 flex items-end p-3"><span class="text-[10px] sm:text-xs font-semibold text-emerald-300">Kegiatan Ibadah</span></div>
+                        <img src="foto-ibadah.jpg" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" alt="Ibadah">
+                    </div>
+                    <div class="relative overflow-hidden rounded-xl aspect-square bg-emerald-800 shadow-sm group">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-100 sm:opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 flex items-end p-3"><span class="text-[10px] sm:text-xs font-semibold text-emerald-300">Asrama Santri</span></div>
+                        <img src="foto-asrama.jpg" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" alt="Asrama">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER BOTTOM -->
+        <footer class="bg-gradient-to-br from-emerald-950 via-emerald-900 to-slate-950 text-emerald-100/80 pt-16 pb-8 border-t border-emerald-800/40 relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-96 h-96 bg-emerald-500/5 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute bottom-0 left-0 w-80 h-80 bg-teal-500/5 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="container mx-auto px-4 sm:px-6 relative z-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 xl:gap-12 pb-12 border-b border-emerald-800/50">
+                
+                <div class="lg:col-span-4 space-y-5">
+                    <a href="#beranda" class="flex items-center space-x-3">
+                        <div class="w-11 h-11 bg-white rounded-2xl flex items-center justify-center shadow-lg shadow-emerald-950/50 flex-shrink-0 group hover:scale-105 transition-transform duration-300">
+                            <i class="fa-solid fa-graduation-cap text-emerald-900 text-xl"></i>
+                        </div>
+                        <span class="text-xl font-black text-white tracking-wider">Rubath Nurul Musthofa</span>
+                    </a>
+                    <p class="text-sm leading-relaxed text-emerald-200/70">
+                        Wadah pendidikan Islam yang integratif, mencetak generasi berakhlaqul karimah, unggul dalam literasi kitab kuning, dan siap menjawab tantangan zaman di era digital.
+                    </p>
+                    <div class="flex items-center space-x-3 pt-2">
+                        <a href="#" class="w-9 h-9 rounded-xl bg-emerald-800/40 hover:bg-emerald-600 text-emerald-100 hover:text-white flex items-center justify-center border border-emerald-700/30 transition-all duration-300 hover:-translate-y-1" title="Instagram">
+                            <i class="fa-brands fa-instagram text-sm"></i>
+                        </a>
+                        <a href="#" class="w-9 h-9 rounded-xl bg-emerald-800/40 hover:bg-emerald-600 text-emerald-100 hover:text-white flex items-center justify-center border border-emerald-700/30 transition-all duration-300 hover:-translate-y-1" title="YouTube">
+                            <i class="fa-brands fa-youtube text-sm"></i>
+                        </a>
+                        <a href="#" class="w-9 h-9 rounded-xl bg-emerald-800/40 hover:bg-emerald-600 text-emerald-100 hover:text-white flex items-center justify-center border border-emerald-700/30 transition-all duration-300 hover:-translate-y-1" title="TikTok">
+                            <i class="fa-brands fa-tiktok text-sm"></i>
+                        </a>
+                        <a href="#" class="w-9 h-9 rounded-xl bg-emerald-800/40 hover:bg-emerald-600 text-emerald-100 hover:text-white flex items-center justify-center border border-emerald-700/30 transition-all duration-300 hover:-translate-y-1" title="Facebook">
+                            <i class="fa-brands fa-facebook-f text-sm"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-2 space-y-4">
+                    <h4 class="text-sm font-bold tracking-widest text-white uppercase border-l-2 border-emerald-500 pl-3">Jelajah</h4>
+                    <ul class="space-y-2.5 text-sm font-medium">
+                        <li><a href="#beranda" class="hover:text-emerald-400 transition-colors flex items-center group"><span class="w-0 group-hover:w-2 h-[2px] bg-emerald-400 mr-0 group-hover:mr-2 transition-all duration-300"></span>Beranda</a></li>
+                        <li><a href="#fitur" class="hover:text-emerald-400 transition-colors flex items-center group"><span class="w-0 group-hover:w-2 h-[2px] bg-emerald-400 mr-0 group-hover:mr-2 transition-all duration-300"></span>Program Unggulan</a></li>
+                        <li><a href="pengurus.html" class="hover:text-emerald-400 transition-colors flex items-center group"><span class="w-0 group-hover:w-2 h-[2px] bg-emerald-400 mr-0 group-hover:mr-2 transition-all duration-300"></span>Struktur Pengurus</a></li>
+                        <li><a href="#santri" class="hover:text-emerald-400 transition-colors flex items-center group"><span class="w-0 group-hover:w-2 h-[2px] bg-emerald-400 mr-0 group-hover:mr-2 transition-all duration-300"></span>Data Santri</a></li>
+                    </ul>
+                </div>
+
+                <div class="lg:col-span-3 space-y-4">
+                    <h4 class="text-sm font-bold tracking-widest text-white uppercase border-l-2 border-emerald-500 pl-3">Kontak Kami</h4>
+                    <ul class="space-y-3.5 text-sm">
+                        <li class="flex items-start space-x-3">
+                            <i class="fa-solid fa-location-dot text-emerald-400 mt-1 flex-shrink-0"></i>
+                            <span class="text-emerald-200/70 leading-relaxed">Jl. Pendidikan No. 45, Kompleks Pesantren, Kota Pasuruan, Jawa Timur</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i class="fa-solid fa-phone text-emerald-400 flex-shrink-0"></i>
+                            <a href="https://wa.me/6281234567890" target="_blank" class="text-emerald-200/70 hover:text-emerald-400 transition-colors">+62 812-3456-7890</a>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i class="fa-solid fa-envelope text-emerald-400 flex-shrink-0"></i>
+                            <a href="mailto:info@rubathnurulmusthofa.com" class="text-emerald-200/70 hover:text-emerald-400 transition-colors truncate">info@rubathnm.com</a>
+                        </li>
+                    </ul>
+                </div>
+
+            <div class="flex flex-col sm:flex-row justify-between items-center pt-8 gap-4 text-xs font-medium text-emerald-200/50">
+                <p class="text-center sm:text-left">
+                    &copy; 2026 <span class="text-white font-semibold">Rubath Nurul Musthofa</span>. Hak Cipta Dilindungi Undang-Undang.
+                </p>
+                <div class="flex space-x-6">
+                    <a href="#" class="hover:text-emerald-400 transition-colors">Kebijakan Privasi</a>
+                    <a href="#" class="hover:text-emerald-400 transition-colors">Syarat & Ketentuan</a>
+                    <a href="#" class="hover:text-emerald-400 transition-colors">Peta Situs</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    </div>
+</body>
+</html>

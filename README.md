@@ -1,2 +1,1 @@
-# RubathNurulMusthofaIDD
-ajiib
+# RubathNurulMusthofaID

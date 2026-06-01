@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Berita Terkini - Rubath Nurul Musthofa</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2=family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>body { font-family: 'Plus Jakarta Sans', sans-serif; }</style>
+</head>
+<body class="bg-slate-50 text-slate-900" 
+      x-data="{ 
+        mobileMenuOpen: false, 
+        currentPage: 1, 
+        perPage: 9,
+        allNews: [
+            <!-- HALAMAN 1 -->
+            { id: 1, date: '24 Mei 2026', author: 'Admin', category: 'Kegiatan', badgeColor: 'bg-emerald-600', icon: 'fa-newspaper', title: 'Pembukaan Penerimaan Santri Baru (PSB) Tahun Ajaran Resmi Dibuka', desc: 'Rubath Nurul Musthofa secara resmi membuka gerbang pendaftaran digital gelombang pertama untuk calon santri berprestasi.' },
+            { id: 2, date: '18 Mei 2026', author: 'Humas', category: 'Prestasi', badgeColor: 'bg-amber-500', icon: 'fa-award', title: 'Santri Rubath Meraih Juara Utama Musabaqah Qira\'atil Kutub (MQK)', desc: 'Pencapaian gemilang diraih oleh ananda Ahmad Rayyan dalam kompetisi pembacaan kitab kuning tingkat regional.' },
+            { id: 3, date: '10 Mei 2026', author: 'Akademik', category: 'Pengumuman', badgeColor: 'bg-red-500', icon: 'fa-bullhorn', title: 'Informasi Jadwal Libur Semester & Kepulangan Santri', desc: 'Berikut maklumat resmi manajemen terkait tanggal penjemputan berkala santri dan aturan kembali ke ma\'had.' },
+            { id: 4, date: '08 Mei 2026', author: 'Admin', category: 'Kegiatan', badgeColor: 'bg-emerald-600', icon: 'fa-users', title: 'Kajian Bulanan Kitab Al-Hikam Bersama Wali Santri', desc: 'Silaturahmi dan majelis ilmu yang dihadiri oleh ratusan wali santri guna menyelaraskan visi pendidikan tarbiyah.' },
+            { id: 5, date: '01 Mei 2026', author: 'Humas', category: 'Prestasi', badgeColor: 'bg-amber-500', icon: 'fa-trophy', title: 'Delegasi Ponpes Juara 1 Pidato Bahasa Arab Tingkat Nasional', desc: 'Kemampuan berorasi yang memukau mengantarkan santri perwakilan Rubath menyabet medali emas emas di Jakarta.' },
+            { id: 6, date: '28 Apr 2026', author: 'Sarpras', category: 'Pengumuman', badgeColor: 'bg-red-500', icon: 'fa-building', title: 'Peresmian Gedung Laboratorium Bahasa dan Komputer Baru', desc: 'Fasilitas baru penunjang skill digital santri modern kini resmi beroperasi penuh untuk kegiatan belajar mengajar.' },
+            { id: 7, date: '20 Apr 2026', author: 'Dakwah', category: 'Kegiatan', badgeColor: 'bg-emerald-600', icon: 'fa-hand-holding-heart', title: 'Bakti Sosial & Pembagian Sembako Ramadhan Rubath Peduli', desc: 'Aksi nyata para santri mengabdi ke masyarakat sekitar pondok dengan menyalurkan paket kebutuhan pokok gratis.' },
+            { id: 8, date: '15 Apr 2026', author: 'Humas', category: 'Prestasi', badgeColor: 'bg-amber-500', icon: 'fa-star', title: 'Khataman Al-Quran 30 Juz Sekali Duduk oleh Santri Tahfidz', desc: 'Program akselerasi tahfidz kembali melahirkan mutaqqin baru yang sukses menempuh ujian sekali simakan.' },
+            { id: 9, date: '10 Apr 2026', author: 'Kesehatan', category: 'Kegiatan', badgeColor: 'bg-emerald-600', icon: 'fa-heart-pulse', title: 'Pemeriksaan Kesehatan Berkala Kerjasama dengan Puskesmas', desc: 'Menjaga kebersihan dan imunitas para santri lewat cek medis menyeluruh serta penyuluhan pola hidup bersih.' },
+            
+            <!-- HALAMAN 2 -->
+            { id: 10, date: '05 Apr 2026', author: 'Admin', category: 'Kegiatan', badgeColor: 'bg-emerald-600', icon: 'fa-book-open', title: 'Dauroh Ilmiah Metode Cepat Membaca Kitab Turats', desc: 'Pelatihan intensif bagi santri tingkat wustho untuk mendalami kaidah nahwu shorof aplikatif secara kilat.' },
+            { id: 11, date: '01 Apr 2026', author: 'Humas', category: 'Prestasi', badgeColor: 'bg-amber-500', icon: 'fa-medal', title: 'Juara Umum Pramuka Pesantren se-Provinsi Jawa Barat', desc: 'Regu inti kepanduan Rubath Nurul Musthofa menyabet piala bergilir setelah memenangkan berbagai kategori lomba.' },
+            { id: 12, date: '25 Mar 2026', author: 'Keamanan', category: 'Pengumuman', badgeColor: 'bg-red-500', icon: 'fa-shield-halved', title: 'Sosialisasi Regulasi Kedisiplinan & Larangan Barang Elektronik', desc: 'Penegasan kembali aturan ketertiban pondok demi menjaga fokus belajar dan kenyamanan bersama di asrama.' },
+            { id: 13, date: '18 Mar 2026', author: 'Admin', category: 'Kegiatan', badgeColor: 'bg-emerald-600', icon: 'fa-moon', title: 'Peringatan Nuzulul Qur\'an dan Tabligh Akbar Ma\'had', desc: 'Malam penuh keberkahan yang diisi dengan pembacaan shalawat, khotmil quran, dan ceramah agama kiai sepuh.' },
+            { id: 14, date: '12 Mar 2026', author: 'Humas', category: 'Prestasi', badgeColor: 'bg-amber-500', icon: 'fa-graduation-cap', title: '15 Santri Akhir Lolos Beasiswa Kuliah ke Universitas Al-Azhar Kairo', desc: 'Prestasi membanggakan, belasan alumni angkatan tahun ini berhasil lulus seleksi ketat kemenag menuju Mesir.' },
+            { id: 15, date: '05 Mar 2026', author: 'Akademik', category: 'Pengumuman', badgeColor: 'bg-red-500', icon: 'fa-file-lines', title: 'Kalender Akademik Pelaksanaan Ujian Nihafiyyah Semester Genap', desc: 'Rilis resmi jadwal ujian lisan dan tulis yang wajib dipersiapkan oleh seluruh jenjang santri.' },
+            { id: 16, date: '28 Feb 2026', author: 'Admin', category: 'Kegiatan', badgeColor: 'bg-emerald-600', icon: 'fa-seedling', title: 'Workshop Agribisnis: Kemandirian Ekonomi Santri Milenial', desc: 'Pelatihan budidaya hidroponik dan pengelolaan ternak modern sebagai bekal enterpreneurship santri.' },
+            { id: 17, date: '20 Feb 2026', author: 'Humas', category: 'Prestasi', badgeColor: 'bg-amber-500', icon: 'fa-pen-nib', title: 'Terbit Buku Antologi Puisi Islami Karya Karya Santri Rubath', desc: 'Kreativitas tanpa batas, kumpulan karya sastra terbaik santri resmi dicetak nasional dan masuk toko buku.' },
+            { id: 18, date: '15 Feb 2026', author: 'Sarpras', category: 'Kegiatan', badgeColor: 'bg-emerald-600', icon: 'fa-faucet-drip', title: 'Pemasangan Sistem Filter Air Bersih Baru di Blok Asrama', desc: 'Peningkatan fasilitas sanitasi guna menjamin ketersediaan air minum harian yang higienis untuk santri.' },
+            
+            <!-- HALAMAN 3 -->
+            { id: 19, date: '10 Feb 2026', author: 'Admin', category: 'Kegiatan', badgeColor: 'bg-emerald-600', icon: 'fa-mosque', title: 'Ziarah Wali Songo dan Rihlah Ilmiah Santri Kelas Akhir', desc: 'Agenda tahunan napak tilas perjuangan dakwah ulama nusantara sekaligus tadabbur alam sebelum kelulusan.' },
+            { id: 20, date: '02 Feb 2026', author: 'Humas', category: 'Prestasi', badgeColor: 'bg-amber-500', icon: 'fa-palette', title: 'Juara 2 Kaligrafi Kontemporer Festival Seni Islam Nusantara', desc: 'Goresan indah kuas santri Rubath memukau dewan juri dalam pameran seni islami tingkat nasional.' },
+            { id: 21, date: '25 Jan 2026', author: 'Pengasuh', category: 'Pengumuman', badgeColor: 'bg-red-500', icon: 'fa-circle-exclamation', title: 'Maklumat Pengasuh Mengenai Tata Cara Penyerahan Infak Pondok', desc: 'Edaran resmi mengenai digitalisasi sistem pembayaran syahriah lewat virtual account terintegrasi.' },
+            { id: 22, date: '18 Jan 2026', author: 'Admin', category: 'Kegiatan', badgeColor: 'bg-emerald-600', icon: 'fa-fire', title: 'Latihan Dasar Kepemimpinan (LDK) Organisasi Santri Intra', desc: 'Membentuk karakter pemimpin masa depan yang disiplin, amanah, serta cekatan dalam mengurus organisasi.' },
+            { id: 23, date: '12 Jan 2026', author: 'Humas', category: 'Prestasi', badgeColor: 'bg-amber-500', icon: 'fa-dumbbell', title: 'Medali Emas Pencak Silat Pagar Nusa Championship', desc: 'Selain pandai mengaji, ketangkasan fisik santri terbukti lewat raihan podium tertinggi olahraga bela diri.' },
+            { id: 24, date: '05 Jan 2026', author: 'Perpustakaan', category: 'Kegiatan', badgeColor: 'bg-emerald-600', icon: 'fa-book', title: 'Gerakan Wakaf Kitab dan Buku Jendela Dunia Santri', desc: 'Pembukaan donasi literasi untuk memperkaya koleksi maktabah pusat dengan kitab-kitab syarah mutabar.' },
+            { id: 25, date: '28 Des 2025', author: 'Admin', category: 'Kegiatan', badgeColor: 'bg-emerald-600', icon: 'fa-computer', title: 'Pelatihan Literasi Digital: Bijak dan Produktif Bermedia Sosial', desc: 'Edukasi pentingnya memilah informasi syiar dakwah kreatif di internet guna menangkal hoax.' },
+            { id: 26, date: '20 Des 2025', author: 'Humas', category: 'Prestasi', badgeColor: 'bg-amber-500', icon: 'fa-brain', title: 'Juara Harapan Olimpiade Matematika Integrasi Sains Islam', desc: 'Kolaborasi pemahaman rumus umum sains dan nilai tauhid membawa santri bersaing di kancah nasional.' },
+            { id: 27, date: '15 Des 2025', author: 'Akademik', category: 'Pengumuman', badgeColor: 'bg-red-500', icon: 'fa-clock', title: 'Pengumuman Batas Akhir Registrasi Ulang Santri Lama', desc: 'Pemberitahuan administratif penting bagi seluruh jenjang terkait prosedur daftar ulang administrasi.' }
+        ]
+      }">
+
+    <!-- NAVBAR -->
+    <nav x-data="{ mobileMenuOpen: false, activeMenu: '', init() {
+            const path = window.location.pathname.split('/').pop();
+            if (path === 'berita.html') this.activeMenu = 'berita';
+            else if (path === 'pengurus.html') this.activeMenu = 'pengurus';
+            else this.activeMenu = 'beranda';
+        } }" x-init="init()" class="fixed w-full top-0 left-0 z-50 bg-emerald-900/90 backdrop-blur-md py-4 shadow-sm border-b border-emerald-800">
+        <div class="container mx-auto px-4 sm:px-6">
+            <div class="flex justify-between items-center">
+                <a href="index.html#beranda" class="flex items-center space-x-3 max-w-[75%] sm:max-w-none">
+                    <img src="favicon.png" alt="Rubath Logo" class="w-10 h-10 bg-white rounded-xl object-cover flex-shrink-0" />
+                    <span class="text-xl font-extrabold text-white tracking-wider truncate">Rubath Nurul Musthofa</span>
+                </a>
+                
+                <div class="hidden md:flex space-x-1 font-semibold text-sm">
+                    <a href="index.html#beranda" @click="activeMenu='beranda'" :class="activeMenu === 'beranda' ? 'px-3.5 py-2 rounded-lg bg-white/20 text-white transition-all duration-300' : 'px-3.5 py-2 rounded-lg text-emerald-100 hover:bg-emerald-800/60 hover:text-white transition-all duration-300'">Beranda</a>
+                    <a href="index.html#fitur" @click="activeMenu='fitur'" :class="activeMenu === 'fitur' ? 'px-3.5 py-2 rounded-lg bg-white/20 text-white transition-all duration-300' : 'px-3.5 py-2 rounded-lg text-emerald-100 hover:bg-emerald-800/60 hover:text-white transition-all duration-300'">Fitur</a>
+                    <a href="pengurus.html" @click="activeMenu='pengurus'" :class="activeMenu === 'pengurus' ? 'px-3.5 py-2 rounded-lg bg-white/20 text-white transition-all duration-300' : 'px-3.5 py-2 rounded-lg text-emerald-100 hover:bg-emerald-800/60 hover:text-white transition-all duration-300'">Pengurus</a>
+                    <a href="index.html#santri" @click="activeMenu='santri'" :class="activeMenu === 'santri' ? 'px-3.5 py-2 rounded-lg bg-white/20 text-white transition-all duration-300' : 'px-3.5 py-2 rounded-lg text-emerald-100 hover:bg-emerald-800/60 hover:text-white transition-all duration-300'">Santri</a>
+                    <a href="index.html#galeri" @click="activeMenu='galeri'" :class="activeMenu === 'galeri' ? 'px-3.5 py-2 rounded-lg bg-white/20 text-white transition-all duration-300' : 'px-3.5 py-2 rounded-lg text-emerald-100 hover:bg-emerald-800/60 hover:text-white transition-all duration-300'">Galeri</a>
+                    <a href="berita.html" @click="activeMenu='berita'" :class="activeMenu === 'berita' ? 'px-3.5 py-2 rounded-lg bg-white/20 text-white transition-all duration-300' : 'px-3.5 py-2 rounded-lg text-emerald-100 hover:bg-emerald-800/60 hover:text-white transition-all duration-300'">Berita</a>
+                </div>
+
+                <!-- Tombol Hamburger Mobile -->
+                <div class="flex md:hidden">
+                    <button @click="mobileMenuOpen = !mobileMenuOpen" type="button" class="text-emerald-100 hover:text-white focus:outline-none p-2 rounded-lg transition-colors">
+                        <svg x-show="!mobileMenuOpen" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                        <svg x-show="mobileMenuOpen" style="display: none;" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Menu Mobile Dropdown -->
+            <div x-show="mobileMenuOpen" 
+                 x-transition:enter="transition ease-out duration-300 transform"
+                 x-transition:enter-start="opacity-0 -translate-y-4"
+                 x-transition:enter-end="opacity-100 translate-y-0"
+                 x-transition:leave="transition ease-in duration-200 transform"
+                 x-transition:leave-start="opacity-100 translate-y-0"
+                 x-transition:leave-end="opacity-0 -translate-y-4"
+                 class="md:hidden mt-4 pt-4 border-t border-emerald-800/60 flex flex-col space-y-2 font-semibold text-sm"
+                 style="display: none;">
+                <a href="index.html#beranda" @click="activeMenu='beranda'; mobileMenuOpen=false" :class="activeMenu === 'beranda' ? 'px-4 py-3 rounded-xl bg-white/20 text-white transition-all' : 'px-4 py-3 rounded-xl text-emerald-100 bg-emerald-950/30 hover:bg-emerald-800/60 hover:text-white transition-all'"> <i class="fa-solid fa-house mr-2 opacity-70"></i>Beranda</a>
+                <a href="index.html#fitur" @click="activeMenu='fitur'; mobileMenuOpen=false" :class="activeMenu === 'fitur' ? 'px-4 py-3 rounded-xl bg-white/20 text-white transition-all' : 'px-4 py-3 rounded-xl text-emerald-100 bg-emerald-950/30 hover:bg-emerald-800/60 hover:text-white transition-all'"> <i class="fa-solid fa-star mr-2 opacity-70"></i>Fitur</a>
+                <a href="pengurus.html" @click="activeMenu='pengurus'; mobileMenuOpen=false" :class="activeMenu === 'pengurus' ? 'px-4 py-3 rounded-xl bg-white/20 text-white transition-all' : 'px-4 py-3 rounded-xl text-emerald-100 bg-emerald-950/30 hover:bg-emerald-800/60 hover:text-white transition-all'"> <i class="fa-solid fa-users mr-2 opacity-70"></i>Struktur Pengurus</a>
+                <a href="index.html#santri" @click="activeMenu='santri'; mobileMenuOpen=false" :class="activeMenu === 'santri' ? 'px-4 py-3 rounded-xl bg-white/20 text-white transition-all' : 'px-4 py-3 rounded-xl text-emerald-100 bg-emerald-950/30 hover:bg-emerald-800/60 hover:text-white transition-all'"> <i class="fa-solid fa-user-graduate mr-2 opacity-70"></i>Santri Terbaik</a>
+                <a href="index.html#galeri" @click="activeMenu='galeri'; mobileMenuOpen=false" :class="activeMenu === 'galeri' ? 'px-4 py-3 rounded-xl bg-white/20 text-white transition-all' : 'px-4 py-3 rounded-xl text-emerald-100 bg-emerald-950/30 hover:bg-emerald-800/60 hover:text-white transition-all'"> <i class="fa-solid fa-images mr-2 opacity-70"></i>Galeri</a>
+                <a href="berita.html" @click="activeMenu='berita'; mobileMenuOpen=false" :class="activeMenu === 'berita' ? 'px-4 py-3 rounded-xl bg-white/20 text-white transition-all' : 'px-4 py-3 rounded-xl text-emerald-100 bg-emerald-950/30 hover:bg-emerald-800/60 hover:text-white transition-all'"> <i class="fa-solid fa-newspaper mr-2 opacity-70"></i>Berita</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- CONTENT PORTAL BERITA -->
+    <main class="pt-32 pb-24 container mx-auto px-6 max-w-6xl">
+        <div class="text-center mb-16">
+            <span class="text-emerald-600 font-bold text-sm tracking-widest uppercase">Kabar & Informasi</span>
+            <h1 class="text-3xl sm:text-5xl font-extrabold text-slate-900 mt-2 mb-4">Berita Terkini Pesantren</h1>
+            <div class="w-24 h-1.5 bg-emerald-600 mx-auto rounded-full"></div>
+        </div>
+
+        <!-- Grid Postingan Berita (Bekerja secara Dinamis Berdasarkan Halaman yang Aktif) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <template x-for="(news, index) in allNews.slice((currentPage - 1) * perPage, currentPage * perPage)" :key="news.id">
+                <article class="bg-white rounded-2xl overflow-hidden shadow-md border border-slate-100 group hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
+                    <div>
+                        <div class="relative aspect-video bg-slate-100 overflow-hidden flex items-center justify-center text-slate-400">
+                            <!-- Icon berganti otomatis sesuai dengan kategori data -->
+                            <i :class="'fa-solid ' + news.icon + ' text-5xl opacity-40 group-hover:scale-105 transition-transform duration-500'"></i>
+                            <span :class="'absolute top-3 left-3 text-white font-bold text-[10px] uppercase px-2.5 py-1 rounded-full ' + news.badgeColor" x-text="news.category"></span>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center text-slate-400 text-xs gap-3 mb-2">
+                                <span><i class="fa-regular fa-calendar mr-1"></i> <span x-text="news.date"></span></span>
+                                <span><i class="fa-regular fa-user mr-1"></i> <span x-text="news.author"></span></span>
+                            </div>
+                            <h3 class="text-lg font-bold text-slate-900 group-hover:text-emerald-600 transition-colors duration-300 line-clamp-2" x-text="news.title"></h3>
+                            <p class="text-slate-500 text-sm mt-2 line-clamp-3" x-text="news.desc"></p>
+                        </div>
+                    </div>
+                    <!-- Link Mengarah ke file detail berita baru (Misal: detail.html?id=1) -->
+                    <div class="px-6 pb-6 pt-2">
+                        <a :href="'detail-berita.html?id=' + news.id" class="text-emerald-600 font-bold text-sm inline-flex items-center hover:text-emerald-700 cursor-pointer">
+                            <span>Baca Selengkapnya</span> 
+                            <i class="fa-solid fa-arrow-right ml-1.5 text-xs"></i>
+                        </a>
+                    </div>
+                </article>
+            </template>
+        </div>
+
+        <!-- PAGINATION BUTTONS (Dinamis Mengubah Halaman Tanpa Reload) -->
+        <div class="flex justify-center items-center gap-2 mt-12">
+            <!-- Tombol Prev -->
+            <button @click="if(currentPage > 1) { currentPage--; window.scrollTo({top: 0, behavior: 'smooth'}); }" 
+                    :disabled="currentPage === 1"
+                    class="w-10 h-10 rounded-lg bg-white border border-slate-200 text-slate-600 flex items-center justify-center hover:bg-slate-100 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer transition-colors">
+                <i class="fa-solid fa-chevron-left text-xs"></i>
+            </button>
+            
+            <!-- Halaman 1 -->
+            <button @click="currentPage = 1; window.scrollTo({top: 0, behavior: 'smooth'});" 
+                    :class="currentPage === 1 ? 'bg-emerald-600 text-white font-bold' : 'bg-white border border-slate-200 text-slate-600 font-medium hover:bg-slate-100'"
+                    class="w-10 h-10 rounded-lg flex items-center justify-center cursor-pointer transition-all">1</button>
+            
+            <!-- Halaman 2 -->
+            <button @click="currentPage = 2; window.scrollTo({top: 0, behavior: 'smooth'});" 
+                    :class="currentPage === 2 ? 'bg-emerald-600 text-white font-bold' : 'bg-white border border-slate-200 text-slate-600 font-medium hover:bg-slate-100'"
+                    class="w-10 h-10 rounded-lg flex items-center justify-center cursor-pointer transition-all">2</button>
+            
+            <!-- Halaman 3 -->
+            <button @click="currentPage = 3; window.scrollTo({top: 0, behavior: 'smooth'});" 
+                    :class="currentPage === 3 ? 'bg-emerald-600 text-white font-bold' : 'bg-white border border-slate-200 text-slate-600 font-medium hover:bg-slate-100'"
+                    class="w-10 h-10 rounded-lg flex items-center justify-center cursor-pointer transition-all">3</button>
+            
+            <!-- Tombol Next -->
+            <button @click="if(currentPage < 3) { currentPage++; window.scrollTo({top: 0, behavior: 'smooth'}); }" 
+                    :disabled="currentPage === 3"
+                    class="w-10 h-10 rounded-lg bg-white border border-slate-200 text-slate-600 flex items-center justify-center hover:bg-slate-100 disabled:opacity-30 disabled:cursor-not-allowed cursor-pointer transition-colors">
+                <i class="fa-solid fa-chevron-right text-xs"></i>
+            </button>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-emerald-900 text-emerald-200/60 py-8 text-center text-xs border-t border-emerald-800">
+        <p>&copy; 2026 Rubath Nurul Musthofa. Hak Cipta Dilindungi.</p>
+    </footer>
+</body>
+</html>
